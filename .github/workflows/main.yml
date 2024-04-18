@@ -6,7 +6,7 @@ on:
 
 jobs: 
   build:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted
 
     steps:
       - uses: actions/checkout@v2
@@ -70,15 +70,8 @@ jobs:
       - name: Build docker-compose for testing
         run: docker-compose -f ./docker-compose.yml up --build -d
 
-      - name: Get IP Addresses
-        uses: candidob/get-runner-ip@v1.0.0
-
-      - name: See IP
-        run: |
-            echo ${{ steps.ip.outputs.ipv4 }}
-
       - name: ZAP Scan
-        run: docker run -t ghcr.io/zaproxy/zaproxy:weekly zap-baseline.py -t http://${{ steps.ip.outputs.ipv4 }}:9090 -a
+        run: docker run -t ghcr.io/zaproxy/zaproxy:weekly zap-baseline.py -t http://10.211.55.21:9090 -a
 
 
   dast2:
