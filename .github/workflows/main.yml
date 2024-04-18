@@ -13,13 +13,13 @@ jobs:
       
       - name: Build docker-compose
         run: |
-         docker-compose -f ./docker-compose.yml up --build -p -d
+         docker-compose -f ./docker-compose.yml up --build -d
 
   sca:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v3   
+      - uses: actions/checkout@v2
       
       - run: |
           mkdir -p logs/
