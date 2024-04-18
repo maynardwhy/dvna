@@ -6,7 +6,7 @@ on:
 
 jobs: 
   build:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -71,10 +71,8 @@ jobs:
         run: docker-compose -f ./docker-compose.yml up --build -d
 
       - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.6.1
-        with:
-         target: 'http://192.168.33.1:9090'
-         cmd_options: '-a'
+        run: docker run -t ghcr.io/zaproxy/zaproxy:weekly zap-baseline.py -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):9090 -a
+
 
   dast2:
     needs: [build, sca]
