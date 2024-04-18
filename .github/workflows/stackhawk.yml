@@ -1,11 +1,11 @@
 # -- stackhawk configuration for  --
 app:
   # -- An applicationId obtained from the StackHawk platform. --
-  applicationId: 47152615-c10f-4b31-a47c-b2a821eafe4b # (required)
+  applicationId: 02f2b9cc-6940-4c6a-b844-264634318f27 # (required)
   # -- The environment for the applicationId defined in the StackHawk platform. --
   env: Development # (required)
   # -- The url of your application to scan --
-  host: https://localhost:9090 # (required)
+  host: http://localhost:9090 # (required)
 
 
 # -- Customized Configuration for GraphQL/SOAP/OpenAPI, add here --
