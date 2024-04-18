@@ -71,11 +71,11 @@ jobs:
         run: docker-compose -f ./docker-compose.yml up --build -d
 
       - name: Get IP Addresses
-              uses: candidob/get-runner-ip@v1.0.0
+        uses: candidob/get-runner-ip@v1.0.0
 
-            - name: See IP Addresses
-              run: |
-                  echo ${{ steps.ip.outputs.ipv4 }}
+      - name: See IP
+        run: |
+            echo ${{ steps.ip.outputs.ipv4 }}
 
       - name: ZAP Scan
         run: docker run -t ghcr.io/zaproxy/zaproxy:weekly zap-baseline.py -t http://${{ steps.ip.outputs.ipv4 }}:9090 -a
