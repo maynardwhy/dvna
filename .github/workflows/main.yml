@@ -71,7 +71,6 @@ jobs:
         run: docker-compose -f ./docker-compose.yml up --build -d
 
       - name: Get IP Addresses
-              id: ip
               uses: candidob/get-runner-ip@v1.0.0
 
             - name: See IP Addresses
