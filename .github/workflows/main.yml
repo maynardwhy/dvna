@@ -70,8 +70,16 @@ jobs:
       - name: Build docker-compose for testing
         run: docker-compose -f ./docker-compose.yml up --build -d
 
+      - name: Get IP Addresses
+              id: ip
+              uses: candidob/get-runner-ip@v1.0.0
+
+            - name: See IP Addresses
+              run: |
+                  echo ${{ steps.ip.outputs.ipv4 }}
+
       - name: ZAP Scan
-        run: docker run -t ghcr.io/zaproxy/zaproxy:weekly zap-baseline.py -t http://$(ip -f inet -o addr show docker0 | awk '{print $4}' | cut -d '/' -f 1):9090 -a
+        run: docker run -t ghcr.io/zaproxy/zaproxy:weekly zap-baseline.py -t http://${{ steps.ip.outputs.ipv4 }}:9090 -a
 
 
   dast2:
