@@ -13,6 +13,7 @@ jobs:
       
       - name: Build docker-compose
         run: |
+         rm  ~/.docker/config.json
          docker-compose -f ./docker-compose.yml up --build -d
 
   sca:
