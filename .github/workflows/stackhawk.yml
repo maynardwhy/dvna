@@ -1,0 +1,8 @@
+# -- stackhawk configuration for Dana --
+app:
+  # -- An applicationId obtained from the StackHawk platform. --
+  applicationId: e867b4a2-d93c-4e4b-8f74-fec4d76cbad5 # (required)
+  # -- The environment for the applicationId defined in the StackHawk platform. --
+  env: Development # (required)
+  # -- The url of your application to scan --
+  host: http://127.0.0.1:9090/ # (required)
