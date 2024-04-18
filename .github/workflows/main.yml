@@ -1,0 +1,61 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Build docker-compose
+        run: |
+         docker-compose -f ./docker-compose.yml up --build -p -d
+
+  sca:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3   
+      
+      - run: |
+          mkdir -p logs/
+
+      - name: Depcheck
+        uses: dependency-check/Dependency-Check_Action@main
+        id: Depcheck
+        with:
+          project: 'test'
+          path: '.'
+          format: 'HTML'    
+          out: 'logs/reports'
+          
+      - uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: logs/reports
+    
+  
+  sast:
+    needs: [build, sca]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3 
+        
+      - run: |
+          mkdir -p logs/  
+
+      - name: njsscan check
+        uses: ajinabraham/njsscan-action@master
+        with:
+          args: ./logs --sarif -o logs/output.sarif
+      
+      - name: output
+        uses: actions/upload-artifact@v2
+        with:
+          name: logs
+          path: logs/output.sarif
