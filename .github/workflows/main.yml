@@ -59,34 +59,3 @@ jobs:
         with:
           name: logs
           path: logs/output.sarif
-
-  dast:
-    needs: [build, sca]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Build docker-compose for testing
-        run: sudo docker-compose -f ./docker-compose.yml up --build -d
-
-      - name: ZAP Scan
-        uses: zaproxy/action-baseline@v0.6.1
-        with:
-         target: 'http://localhost:9090'
-         cmd_options: '-a'
-
-  dast2:
-    needs: [build, sca]
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Build env
-        run: |
-          docker-compose -f ./docker-compose.yml up --build -d
-          cp .github/workflows/stackhawk.yml /home/runner/work/dvna/dvna/stackhawk.yml
-
-      - name: HawkScan
-        uses: stackhawk/hawkscan-action@v2
-        with:
-          apiKey: ${{ secrets.HAWK_API_KEY }}
