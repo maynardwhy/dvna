@@ -72,7 +72,7 @@ jobs:
          run: docker-compose -f ./environment/app/docker-compose.yml up --build -d
          
        - name: ZAP Scan
-         uses: zaproxy/action-baseline@v0.12.0
-         with:
+        uses: zaproxy/action-baseline@v0.12.0
+        with:
           target: 'http://localhost:5000'
           cmd_options: '-a'    
