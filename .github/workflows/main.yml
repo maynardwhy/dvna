@@ -52,10 +52,10 @@ jobs:
       - name: njsscan check
         uses: ajinabraham/njsscan-action@master
         with:
-          args: ./logs --html -o logs/results.html
+          args: ./logs --sarif --output results.sarif
       
       - name: output
         uses: actions/upload-artifact@v2
         with:
           name: logs
-          path: logs/results.html
+          path: logs/results.sarif
