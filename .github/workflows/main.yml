@@ -52,7 +52,6 @@ jobs:
       - name: njsscan check
         uses: ajinabraham/njsscan-action@master
         with:
-          path: ./
           args: ./logs --html -o logs/results.html
       
       - name: output
