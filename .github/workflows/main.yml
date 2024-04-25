@@ -52,6 +52,7 @@ jobs:
       - name: njsscan check
         uses: ajinabraham/njsscan-action@master
         with:
+          path: ./
           args: ./logs --sarif -o logs/output.sarif
       
       - name: output
